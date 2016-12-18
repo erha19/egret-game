@@ -16,6 +16,7 @@ var game_file_list = [
 	"bin-debug/Game/Game.js",
 	"bin-debug/Ghost/Ghost.js",
 	"bin-debug/Ghost/GhostBase.js",
+	"bin-debug/Ghost/GhostContainer.js",
 	"bin-debug/Layout/Background.js",
 	"bin-debug/Loader/Loader.js",
 	"bin-debug/LoadingUI.js",

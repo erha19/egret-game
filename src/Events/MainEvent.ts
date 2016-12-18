@@ -16,6 +16,8 @@ class MainEvent extends egret.Event {
 
 
     public static DISTORYACTION: string = "destory_action";//消除动作
+    public static ATTACKED: string = "be_attacked";//被攻击
+    
     
     private _resName: string = "";
     public constructor(type:string, resName:string="", bubbles:boolean=false, cancelable:boolean=false) {

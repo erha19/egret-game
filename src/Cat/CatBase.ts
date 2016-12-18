@@ -9,13 +9,21 @@ class CatBase extends egret.MovieClip{
     
 	public constructor() {
         super();
-        this.addEventListener(egret.Event.COMPLETE,this.song,this);
+        this.addEventListener(egret.Event.COMPLETE,this.completeAction,this);
 	}
 
     public song(){
-    
-        console.log(123456)
         this.gotoAndPlay(this.idleLabel,-1);
+    }
+
+    public completeAction(e:egret.Event){
+        if(e.target instanceof Cat){
+            this.gotoAndPlay(this.idleLabel,-1);
+        }
+    }
+
+    public shock(e:MainEvent){
+        // this.gotoAndPlay('shock',1);
     }
     	
     /**画画Action 参数：图形类型*/

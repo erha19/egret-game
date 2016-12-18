@@ -33,18 +33,16 @@ class Game
     private _time:egret.Timer;
     public start()
     {
-        this._time = new egret.Timer(3000,0);
+        this._time = new egret.Timer(1000,0);
         
-        // this._time.addEventListener(egret.TimerEvent.TIMER,this.create,this);
+        this._time.addEventListener(egret.TimerEvent.TIMER,this.create,this);
         this._time.start();
     }
-    // private create()
-    // {
-    //     let cat:CatBase = new CatBase();
-    //     egret.log(cat)
-    //     this._layer.addChild(cat);
-    //     cat.gotoAndPlay( "song");
-    // }
+    private create()
+    {
+        let ghost:GhostContainer = new GhostContainer();
+        this._layer.addChild(ghost);
+    }
 
     private gameover(evt:egret.Event)
     {
