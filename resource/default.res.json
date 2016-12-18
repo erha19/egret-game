@@ -1,0 +1,16 @@
+{
+	"resources": [
+		{
+			"name": "ghost_json",
+			"type": "sheet",
+			"url": "assets/ghost/ghost.json",
+			"subkeys": "shock_0_png"
+		}
+	],
+	"groups": [
+		{
+			"name": "preload",
+			"keys": "ghost_json"
+		}
+	]
+}

@@ -1,13 +1,3 @@
-enum shapeType {
-    HORIZONTAL,
-    VERTICAL,
-    LETTER_V,
-    REVERSED_LETTER_V,
-    TRIANGLE,
-    FLASH,
-    UNKONW_TYPE
-}
-
 class shapeRecognition{
 
         public simplify(arr:[number,number][]):[number,number][][]{
@@ -90,7 +80,8 @@ class shapeRecognition{
                 if(ans[0]==2 && ans[2]==2)
                     return shapeType.FLASH;
                 else if(ans[0]==2 && ans[2]==1)
-                    return shapeType.TRIANGLE;
+                    // return shapeType.TRIANGLE;
+                    return shapeType.UNKONW_TYPE;
             }
             return shapeType.UNKONW_TYPE;
         }

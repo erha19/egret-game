@@ -7,7 +7,7 @@ class Game
         this.init();
     }
 
-    private _gesture:Gesture;
+    private _gesture:GestureShape;
     private _gestureShape:egret.Shape;
     private init()
     {
@@ -15,13 +15,14 @@ class Game
 
         this._gestureShape = new egret.Shape();
         this._layer.addChild( this._gestureShape );
-        this._gesture = new Gesture();
+        this._gesture = new GestureShape();
         this._gesture.addEvent(this._gestureShape);
         Data.stage.addEventListener(MainEvent.GAMEOVER,this.gameover,this);
         Data.stage.addEventListener(MainEvent.PAUSE,this.earthquake,this);
     }
 
     private _background:Background;
+
     private drawBg()
     {
         this._background = new Background();

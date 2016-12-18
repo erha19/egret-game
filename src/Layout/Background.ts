@@ -20,13 +20,13 @@ class Background extends egret.DisplayObjectContainer{
         this._cat.x = (Data.getStageW() + this._cat.width) / 2;
         this._cat.y = (Data.getStageH()  + this._cat.height) / 2;
         this.addChild(this._cat);
-        this._cat.onEnterFrame(80000);
+        this._cat.song();
         // this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
-        
+        Data.stage.addEventListener(MainEvent.DISTORYACTION,this._cat.draw,this._cat);
+
+        // egret.MainContext.instance.stage.addEventListener(MainEvent.DISTORYACTION,this._cat.draw,this);
     }
-    public onEnterFrame(){
-        this._cat.onEnterFrame(80000)
-    }
+
     public update()
     {
         this._txt.text = Data.score.toString();

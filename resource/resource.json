@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,destory_ghosts_json,destory_ghosts_png,stage-sprite_json",
+			"keys": "description_json,destory_ghosts_json,destory_ghosts_png,stage-sprite_json,ghost_json",
 			"name": "preload"
 		}
 	],
@@ -26,6 +26,12 @@
 			"type": "sheet",
 			"url": "assets/stage/stage-sprite.json",
 			"subkeys": "main-stage_png"
+		},
+		{
+			"name": "ghost_json",
+			"type": "sheet",
+			"url": "assets/ghost/ghost.json",
+			"subkeys": "shock_0_png"
 		}
 	]
 }

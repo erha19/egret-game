@@ -1,4 +1,19 @@
-class Gesture
+
+enum shapeType {
+    HORIZONTAL=2,
+    VERTICAL=1,
+    LETTER_V=0,
+    REVERSED_LETTER_V=3,
+    FLASH=5,
+    UNKONW_TYPE=-1
+}
+// v 0
+// | 1
+// - 2
+// ^ 3
+// 6 4
+// z 5
+class GestureShape
 {
     private _layer:egret.Shape;
     public addEvent(layer:egret.Shape)
@@ -101,19 +116,16 @@ class Gesture
         Data.type = type;
         if(type != -1)
         {
-            egret.MainContext.instance.stage.dispatchEvent(new egret.Event("action"));
+            egret.log('dispatch event')
+            
+            egret.MainContext.instance.stage.dispatchEvent(new MainEvent(MainEvent.DISTORYACTION,null,true));
         }
     }
 
     private _symbol:string[] = ["28","46","82","64","141","585","3","7","5","1","4321876","2345678"];
-    private _symbolG:number[] = [0,0,3,3,5,5,1,1,2,2,4,4];
+    private _symbolG:number[] = [0,0,3,3,5,5,1,1,2,2,-1,-1];
 
-    // v 0
-    // | 1
-    // - 2
-    // ^ 3
-    // 6 4
-    // z 5
+    
 
     private sweep( str:string ):number
     {
@@ -123,9 +135,10 @@ class Gesture
         for(let i:number=0; i<len; i++)
         {
             let val:number = this.Levenshtein_Distance_Percent(this._symbol[i], str);
-            egret.log(val,max);
+            // egret.log(val,max,'time:'+i);
             if(val>max)
             {
+                // egret.log('time:'+i)
                 max = val;
                 maxType = this._symbolG[i];
             }
@@ -135,6 +148,7 @@ class Gesture
         {
             maxType = -1;
         }
+        // egret.log('结果:'+maxType)
         return maxType;
     }
 
