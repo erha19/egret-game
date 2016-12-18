@@ -1,0 +1,31 @@
+{
+	"groups": [
+		{
+			"keys": "description_json,destory_ghosts_json,destory_ghosts_png,stage-sprite_json",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "config/description.json",
+			"type": "json",
+			"name": "description_json"
+		},
+		{
+			"url": "assets/rolemc/destory_ghosts.json",
+			"type": "json",
+			"name": "destory_ghosts_json"
+		},
+		{
+			"url": "assets/rolemc/destory_ghosts.png",
+			"type": "image",
+			"name": "destory_ghosts_png"
+		},
+		{
+			"name": "stage-sprite_json",
+			"type": "sheet",
+			"url": "assets/stage/stage-sprite.json",
+			"subkeys": "main-stage_png"
+		}
+	]
+}
