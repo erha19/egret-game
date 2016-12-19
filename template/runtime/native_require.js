@@ -21,7 +21,8 @@ var game_file_list = [
 	"bin-debug/Loader/Loader.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
-	"bin-debug/SpellCanvas/SpellCanvas.js",
+	"bin-debug/Shape/Shape.js",
+	"bin-debug/Shape/ShapeContainer.js",
 	"bin-debug/Utils/Gesture.js",
 	"bin-debug/Utils/ShapeRecognition.js",
 	//----auto game_file_list end----

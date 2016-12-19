@@ -2,9 +2,8 @@ class Cat extends CatBase {
     public constructor() {
         super();
         this.init();
-        
-        
 	}
+    
     private init(){
         let data = RES.getRes("destory_ghosts_json");
         let tex = RES.getRes("destory_ghosts_png");

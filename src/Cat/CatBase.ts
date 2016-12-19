@@ -23,7 +23,7 @@ class CatBase extends egret.MovieClip{
     }
 
     public shock(e:MainEvent){
-        // this.gotoAndPlay('shock',1);
+        this.gotoAndPlay('shock',1);
     }
     	
     /**画画Action 参数：图形类型*/

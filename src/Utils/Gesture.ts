@@ -116,14 +116,12 @@ class GestureShape
         Data.type = type;
         if(type != -1)
         {
-            egret.log('dispatch event')
-            
-            egret.MainContext.instance.stage.dispatchEvent(new MainEvent(MainEvent.DISTORYACTION,null,true));
+            Data.stage.dispatchEvent(new MainEvent(MainEvent.DISTORYACTION,null,true));
         }
     }
 
     private _symbol:string[] = ["28","46","82","64","141","585","3","7","5","1","4321876","2345678"];
-    private _symbolG:number[] = [0,0,3,3,5,5,1,1,2,2,-1,-1];
+    private _symbolG:number[] = [0,0,3,3,5,5,1,1,2,2,5,-1];
 
     
 

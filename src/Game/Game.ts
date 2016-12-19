@@ -33,8 +33,7 @@ class Game
     private _time:egret.Timer;
     public start()
     {
-        this._time = new egret.Timer(1000,0);
-        
+        this._time = new egret.Timer(Data.baseTimer,0);
         this._time.addEventListener(egret.TimerEvent.TIMER,this.create,this);
         this._time.start();
     }
