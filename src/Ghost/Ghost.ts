@@ -10,6 +10,6 @@ class Ghost extends CatBase {
         let tex = RES.getRes("destory_ghosts_png");
         let mcf:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data, tex);
         this.movieClipData = mcf.generateMovieClipData("ghost");
-        this.gotoAndStop('shock');
+        this.gotoAndStop('move');
     }
 }

@@ -3,12 +3,7 @@ class ShapeContainer extends egret.Sprite{
         super();
         this.init();
     }
-    public static UNKONW_TYPE_COLOR = 0x000000;
-    public static HORIZONTAL_COLOR = 0xff3737;
-    public static VERTICAL_COLOR = 0x3c63ff;
-    public static LETTER_V_COLOR = 0xfdf800;
-    public static REVERSED_LETTER_V_COLOR = 0x09ff0c;
-    public static FLASH_COLOR = 0xfcc62a;
+    
 
 
     private _line:egret.Shape;
@@ -17,10 +12,20 @@ class ShapeContainer extends egret.Sprite{
 
     }
 
-    public create(list:[number]){
+    public create(list:[number],dir?:number){
         let createShapeItem:Shape;
         for(let item = 0,len = list.length;item<len;item++){
-            createShapeItem=new Shape(<number>list[item]);
+            createShapeItem=new Shape(<number>list[item],dir);
+            createShapeItem.x=item*15;
+            this.addChild(createShapeItem);
+        }
+    }
+
+    public redraw(list:[number],dir?:number){
+        this.removeChildren();
+        let createShapeItem:Shape;
+        for(let item = 0,len = list.length;item<5&&item<len;item++){
+            createShapeItem=new Shape(<number>list[item],dir);
             createShapeItem.x=item*15;
             this.addChild(createShapeItem);
         }

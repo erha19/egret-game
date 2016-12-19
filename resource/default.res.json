@@ -1,16 +1,20 @@
 {
 	"resources": [
 		{
-			"name": "ghost_json",
-			"type": "sheet",
-			"url": "assets/ghost/ghost.json",
-			"subkeys": "shock_0_png"
+			"name": "num_png",
+			"type": "image",
+			"url": "assets/num/num.png"
+		},
+		{
+			"name": "num_fnt",
+			"type": "font",
+			"url": "assets/num/num.fnt"
 		}
 	],
 	"groups": [
 		{
 			"name": "preload",
-			"keys": "ghost_json"
+			"keys": "num_png,num_fnt"
 		}
 	]
 }

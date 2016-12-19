@@ -5,7 +5,7 @@ class Background extends egret.DisplayObjectContainer{
 
         this.init();
     }
-    private _dot:egret.Shape;
+    private _life:egret.Sprite;
     private _cat:Cat;
     private _txt:egret.BitmapText;
     private init()
@@ -22,14 +22,45 @@ class Background extends egret.DisplayObjectContainer{
         this.addChild(this._cat);
         this._cat.song();
 
+
+        this._txt = new egret.BitmapText();
+        this._txt.font = RES.getRes("num_fnt");
+        this._txt.width = Data.getStageW()-30;
+        this._txt.y = 0;
+        this._txt.textAlign = 'right';
+        this._txt.text ='score:'+Data.score.toString();
+        this.addChild(this._txt);
+        
+        this._life = new egret.Sprite();
+        this.updateLife();
+        this._life.x = 20;
+        this._life.y = 10;
+
+        this.addChild(this._life);
+
+
+        
         Data.stage.addEventListener(MainEvent.DISTORYACTION,this._cat.draw,this._cat);
         Data.stage.addEventListener(MainEvent.ATTACKED,this._cat.shock,this._cat);
+        Data.stage.addEventListener(MainEvent.DISTORYGHOST,this.updateScore,this);
+        Data.stage.addEventListener(MainEvent.ATTACKED,this.updateLife,this);
         // egret.MainContext.instance.stage.addEventListener(MainEvent.DISTORYACTION,this._cat.draw,this);
     }
 
-    public update()
+    public updateScore()
     {
-        this._txt.text = Data.score.toString();
+        this._txt.text = 'score:'+Data.score.toString();
+    }
+
+    public updateLife(){
+        let _lifeIcon:egret.Bitmap;
+        this._life.removeChildren();
+        for(let i = 0; i<Data.life;i++){
+            _lifeIcon = new egret.Bitmap();
+            _lifeIcon.texture = RES.getRes("life_png");
+            _lifeIcon.x=i*40;
+            this._life.addChild(_lifeIcon);
+        }
     }
 
 }
