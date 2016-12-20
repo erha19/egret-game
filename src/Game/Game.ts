@@ -41,6 +41,8 @@ class Game
 
     private _time:egret.Timer;
 
+
+
     private pauseHandler(){
         this._time.stop();
         this._gesture.removeEvent();

@@ -25,6 +25,7 @@ var game_file_list = [
 	"bin-debug/Main.js",
 	"bin-debug/Shape/Shape.js",
 	"bin-debug/Shape/ShapeContainer.js",
+	"bin-debug/SpellCanvas/SpellCanvas.js",
 	"bin-debug/Utils/Gesture.js",
 	"bin-debug/Utils/ShapeRecognition.js",
 	//----auto game_file_list end----
@@ -67,7 +68,7 @@ egret_native.egretStart = function () {
 		showPaintRect: false,
 		showFPS: false,
 		fpsStyles: "x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9",
-		showLog: true,
+		showLog: false,
 		logFilter: "",
 		maxTouches: 1,
 		textureScaleFactor: 1

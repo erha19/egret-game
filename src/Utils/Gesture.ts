@@ -24,6 +24,7 @@ class GestureShape
 
         Data.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.mouseDown,this);
         Data.stage.addEventListener(egret.TouchEvent.TOUCH_END,this.mouseUp,this);
+        Data.stage.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onTouchRealse, this);
         Data.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
     }
     public removeEvent()
@@ -36,13 +37,16 @@ class GestureShape
     private _mouseDatas:egret.Point[];
     private _currentPoint:egret.Point;
 
+    private onTouchRealse(evt:egret.TouchEvent){
+        egret.log('onTouchRealse')
+    }
 
     private mouseDown(evt:egret.TouchEvent)
     {
-        //添加定时器控制mousemove事件超时移除，防止用户滑动到微信头部无法控制其他事件导致的bug
-        this._time = new egret.Timer(500, 0);
-        this._time.reset();
-        this._time.addEventListener(egret.TimerEvent.TIMER, this.freeMouseHandler, this);
+        // //添加定时器控制mousemove事件超时移除，防止用户滑动到微信头部无法控制其他事件导致的bug
+        // this._time = new egret.Timer(500, 0);
+        // this._time.reset();
+        // this._time.addEventListener(egret.TimerEvent.TIMER, this.freeMouseHandler, this);
         
         this._layer.graphics.clear();
         this._mouseDatas = [];
@@ -52,11 +56,12 @@ class GestureShape
     }
     private mouseMove(evt:egret.TouchEvent)
     {
-        this._time.reset();
-        this._time.start();
+        // this._time.reset();
+        // this._time.start();
         let p:egret.Point = new egret.Point(evt.stageX,evt.stageY);
         this._mouseDatas.push(p);
-
+        egret.log('mouseMove:',p)
+        
         this._layer.graphics.lineStyle(5,0) ;
         this._layer.graphics.moveTo(this._currentPoint.x,this._currentPoint.y);
         this._layer.graphics.lineTo(p.x,p.y);
@@ -75,17 +80,17 @@ class GestureShape
         this.motion();
     }
 
-    private freeMouseHandler(){
-        this._time.stop();
-        this._layer.graphics.clear();
-        this.rehandlerMove()
-    }
+    // private freeMouseHandler(){
+    //     this._time.stop();
+    //     this._layer.graphics.clear();
+    //     this.rehandlerMove()
+    // }
 
-    private rehandlerMove(){
-        Data.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
-        // Data.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
+    // private rehandlerMove(){
+    //     Data.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
+    //     // Data.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
 
-    }
+    // }
     private motion()
     {
         let _arr:egret.Point[] = [];

@@ -17,6 +17,8 @@ class MainEvent extends egret.Event {
     public static GAMEGOON: string = "gameregoon";//游戏继续
 
 
+
+
     public static DISTORYACTION: string = "destory_action";//消除动作
     public static DISTORYGHOST: string = "destory_ghost";//消除鬼怪得分
     public static FLASHACTION: string = "flash_action";//消除闪电时间
