@@ -9,6 +9,9 @@ class Game
     private _restartButton:RestartButton;
     private _gesture:GestureShape;
     private _gestureShape:egret.Shape;
+
+    private _pauseButton:PauseButton;
+
     private init()
     {
         this.drawBg();
@@ -20,6 +23,8 @@ class Game
         Data.stage.addEventListener(MainEvent.GAMEOVER,this.gameover,this);
         Data.stage.addEventListener(MainEvent.ATTACKED,this.beattacked,this);
         Data.stage.addEventListener(MainEvent.GAMERESTART,this.restart,this);
+        Data.stage.addEventListener(MainEvent.GAMEPAUSE, this.pauseHandler, this);
+        Data.stage.addEventListener(MainEvent.GAMEGOON, this.goonHandler, this);
     }
 
     private _background:Background;
@@ -29,9 +34,22 @@ class Game
         this._background = new Background();
         this._layer.addChild( this._background );
 
+
+        this._pauseButton = new PauseButton();
+        this._layer.addChild(this._pauseButton);
     }
 
     private _time:egret.Timer;
+
+    private pauseHandler(){
+        this._time.stop();
+        this._gesture.removeEvent();
+    }
+    private goonHandler(){
+        this._gesture.addEvent(this._gestureShape);
+        this._time.start();
+    }
+
     public start()
     {
         this._time = new egret.Timer(Data.baseTimer,0);
@@ -40,8 +58,10 @@ class Game
     }
     private create()
     {
+        let times = 10;
         Data.ghostTimes++;
-        if(Data.ghostTimes%10==0){
+        if(Data.ghostTimes%times==0){
+            times+=10;
             Math.random()>0.5?Data.baseSymbolRandomNum++:Data.baseRandomSpeed++;
         }
         let ghost:GhostContainer = new GhostContainer();

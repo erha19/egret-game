@@ -14,6 +14,7 @@ var game_file_list = [
 	"bin-debug/Events/LoadEvent.js",
 	"bin-debug/Events/MainEvent.js",
 	"bin-debug/Game/Game.js",
+	"bin-debug/Game/Pause.js",
 	"bin-debug/Game/Restart.js",
 	"bin-debug/Ghost/Ghost.js",
 	"bin-debug/Ghost/GhostBase.js",
@@ -66,7 +67,7 @@ egret_native.egretStart = function () {
 		showPaintRect: false,
 		showFPS: false,
 		fpsStyles: "x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9",
-		showLog: false,
+		showLog: true,
 		logFilter: "",
 		maxTouches: 1,
 		textureScaleFactor: 1

@@ -22,7 +22,7 @@ class CatBase extends egret.MovieClip{
         }
     }
 
-    public shock(e:MainEvent){
+    public shock(){
         this.gotoAndPlay('shock',1);
     }
     	

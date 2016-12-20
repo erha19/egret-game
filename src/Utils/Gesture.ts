@@ -16,25 +16,34 @@ enum shapeType {
 class GestureShape
 {
     private _layer:egret.Shape;
+    private _time:egret.Timer;
+
     public addEvent(layer:egret.Shape)
     {
         this._layer = layer;
 
-        egret.MainContext.instance.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.mouseDown,this);
-        egret.MainContext.instance.stage.addEventListener(egret.TouchEvent.TOUCH_END,this.mouseUp,this);
-        egret.MainContext.instance.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
+        Data.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.mouseDown,this);
+        Data.stage.addEventListener(egret.TouchEvent.TOUCH_END,this.mouseUp,this);
+        Data.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
     }
     public removeEvent()
     {
-        egret.MainContext.instance.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.mouseDown,this);
-        egret.MainContext.instance.stage.removeEventListener(egret.TouchEvent.TOUCH_END,this.mouseUp,this);
-        egret.MainContext.instance.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
+        Data.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.mouseDown,this);
+        Data.stage.removeEventListener(egret.TouchEvent.TOUCH_END,this.mouseUp,this);
+        Data.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
     }
 
     private _mouseDatas:egret.Point[];
     private _currentPoint:egret.Point;
+
+
     private mouseDown(evt:egret.TouchEvent)
     {
+        //添加定时器控制mousemove事件超时移除，防止用户滑动到微信头部无法控制其他事件导致的bug
+        this._time = new egret.Timer(500, 0);
+        this._time.reset();
+        this._time.addEventListener(egret.TimerEvent.TIMER, this.freeMouseHandler, this);
+        
         this._layer.graphics.clear();
         this._mouseDatas = [];
         let p:egret.Point = new egret.Point(evt.stageX,evt.stageY);
@@ -43,6 +52,8 @@ class GestureShape
     }
     private mouseMove(evt:egret.TouchEvent)
     {
+        this._time.reset();
+        this._time.start();
         let p:egret.Point = new egret.Point(evt.stageX,evt.stageY);
         this._mouseDatas.push(p);
 
@@ -54,13 +65,27 @@ class GestureShape
     }
     private mouseUp(evt:egret.TouchEvent)
     {
+        
         let p:egret.Point = new egret.Point(evt.stageX,evt.stageY);
+        egret.log('mouseUp',p)
+        
         this._mouseDatas.push(p);
         this._layer.graphics.clear();
 
         this.motion();
     }
 
+    private freeMouseHandler(){
+        this._time.stop();
+        this._layer.graphics.clear();
+        this.rehandlerMove()
+    }
+
+    private rehandlerMove(){
+        Data.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
+        // Data.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
+
+    }
     private motion()
     {
         let _arr:egret.Point[] = [];
@@ -100,14 +125,10 @@ class GestureShape
                 let quad:number = this.quadrant(p1,p2);
                 let dir:number = this.getDirByAngQuad(ang, quad);
                 this._dirsArr.push(dir);
-                //console.log("quad: ",quad, "ang: ", ang);
             }
         }
-        //console.log(this._dirsArr);
         let dirstr:string = this.repDiff( this._dirsArr );
-        console.log( dirstr );
         let rel:number = this.sweep( dirstr );
-        console.log("type: ",rel);
         this.disEvent(rel);
     }
 
@@ -142,7 +163,7 @@ class GestureShape
             }
         }
 
-        if(max<0.4)
+        if(max<0.25)
         {
             maxType = -1;
         }

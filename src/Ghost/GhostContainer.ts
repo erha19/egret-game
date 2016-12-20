@@ -29,8 +29,10 @@ class GhostContainer extends egret.DisplayObjectContainer {
             this.addEventListener(egret.Event.ADDED, this.added, this);
             this._ghost.addEventListener( egret.Event.COMPLETE, this.completeHandler, this );
             Data.stage.addEventListener(MainEvent.DISTORYACTION,this.destoryHandler,this);
+            Data.stage.addEventListener(MainEvent.FLASHACTION, this.flashActionHandler, this);
             Data.stage.addEventListener(MainEvent.GAMEOVER,this.gameoverHandler,this);
-//          Data.stage.addEventListener("gameover", this.gameover, this);
+            Data.stage.addEventListener(MainEvent.GAMEPAUSE, this.pauseHandler, this);
+            Data.stage.addEventListener(MainEvent.GAMEGOON, this.goonHandler, this);
     }
 
     private drawSymbol():void{
@@ -42,15 +44,25 @@ class GhostContainer extends egret.DisplayObjectContainer {
             this.addChild(this._shape)
     }
 
+
+    private pauseHandler():void{
+            this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
+    }
+
+    private goonHandler():void{
+            this.parent&&this.addEventListener(egret.Event.ENTER_FRAME, this.move, this);
+    }
+
+    private gameoverHandler():void{
+            this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
+    }
+
     private redrawSymbol():void{
             this._shape.redraw(this._symbolList,this._dir);
     }
     
 
-    private gameoverHandler():void{
-            this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
-            // this.parent.removeChild(this);
-    }
+    
 
     private added(evt:egret.Event):void {
             if(evt.target instanceof GhostContainer){
@@ -73,11 +85,12 @@ class GhostContainer extends egret.DisplayObjectContainer {
     private move(evt:egret.Event) {
         
         if (this.hitPointTest()) {
+            this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
+            
             this._ghost.gotoAndPlay('attack',1);
             this._symbolList.length = 0;
 
-            this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
-
+            
             Data.life--;
             Data.stage.dispatchEvent(new MainEvent(MainEvent.ATTACKED));
             if(Data.life<=0)
@@ -90,25 +103,50 @@ class GhostContainer extends egret.DisplayObjectContainer {
     }
     //监听消除事件
     private destoryHandler(e:MainEvent):void{
-        if(this._symbolList[0]==Data.type){
-            this._symbolList.shift();
-            this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
-            if(this._symbolList.length>=1){
-                this._ghost.gotoAndPlay('shock',1);
-                this.redrawSymbol()
-            }else{
-                this.removeChild(this._shape);
-                this._ghost.gotoAndPlay('die',1);
-                Data.score+=this._score;
-                Data.stage.dispatchEvent(new MainEvent(MainEvent.DISTORYGHOST));
+        if(Data.type == shapeType.FLASH){
+            if(this._symbolList[0]==Data.type){
+                Data.stage.dispatchEvent(new MainEvent(MainEvent.FLASHACTION));
             }
-            
+        }
+        else{
+             if(this._symbolList[0]==Data.type){
+                this._symbolList.shift();
+                this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
+                if(this._symbolList.length>=1){
+                    this._ghost.gotoAndPlay('shock',1);
+                    this.redrawSymbol()
+                }else{
+                    this.removeChild(this._shape);
+                    this._ghost.gotoAndPlay('die',1);
+                    Data.score+=this._score;
+                    Data.stage.dispatchEvent(new MainEvent(MainEvent.DISTORYGHOST));
+                }
+            }
+        }
+       
+    }
+
+
+    private flashActionHandler(e:MainEvent):void{
+        this._symbolList.shift();
+        this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
+        if(this._symbolList.length>=1){
+            this._ghost.gotoAndPlay('shock',1);
+            this.redrawSymbol()
+        }else{
+            if(this._shape.parent){
+                this.removeChild(this._shape);
+            }
+            this._ghost.gotoAndPlay('die',1);
+            Data.score+=this._score;
+            Data.stage.dispatchEvent(new MainEvent(MainEvent.DISTORYGHOST));
         }
     }
 
+    
     private completeHandler(e:egret.Event):void{
         if(e.target instanceof Ghost){
-            if(this._symbolList.length<1){
+            if(this._symbolList.length<1&&this.parent){
                 this.parent.removeChild(this);
             }
             else{

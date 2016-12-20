@@ -8,6 +8,7 @@ class Background extends egret.DisplayObjectContainer{
     private _life:egret.Sprite;
     private _cat:Cat;
     private _txt:egret.BitmapText;
+    
     private init()
     {
         let bg:egret.Bitmap = new egret.Bitmap();
@@ -38,7 +39,7 @@ class Background extends egret.DisplayObjectContainer{
 
         this.addChild(this._life);
 
-
+        
         
         Data.stage.addEventListener(MainEvent.DISTORYACTION,this._cat.draw,this._cat);
         Data.stage.addEventListener(MainEvent.ATTACKED,this._cat.shock,this._cat);

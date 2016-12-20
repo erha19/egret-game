@@ -25,7 +25,7 @@
 			"url": "assets/stage/stage-sprite.json",
 			"type": "sheet",
 			"name": "stage-sprite_json",
-			"subkeys": "life_png,main-stage_png,restart_button_png"
+			"subkeys": "life_png,main-stage_png,pause_png,pause_start_png,restart_button_png"
 		},
 		{
 			"url": "assets/num/num.fnt",
