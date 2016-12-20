@@ -1,0 +1,20 @@
+{
+	"resources": [
+		{
+			"name": "num_png",
+			"type": "image",
+			"url": "assets/num/num.png"
+		},
+		{
+			"name": "num_fnt",
+			"type": "font",
+			"url": "assets/num/num.fnt"
+		}
+	],
+	"groups": [
+		{
+			"name": "preload",
+			"keys": "num_png,num_fnt"
+		}
+	]
+}
