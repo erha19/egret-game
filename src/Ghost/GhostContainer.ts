@@ -17,6 +17,11 @@ class GhostContainer extends egret.DisplayObjectContainer {
     private _vy:number = 0;
     //方向 1 左边 0右边
     private _dir:number = Math.random()>0.5?0:1;
+    //防止自身监听的flash重复触发
+    private _preFlash:boolean = false;
+
+    private _ghostDieChannel:egret.SoundChannel;
+    private _ghostFlashShockChannel:egret.SoundChannel;
 
     private init() {
 
@@ -88,6 +93,7 @@ class GhostContainer extends egret.DisplayObjectContainer {
             this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
             
             this._ghost.gotoAndPlay('attack',1);
+            this.playShockMusic();
             this._symbolList.length = 0;
 
             
@@ -101,14 +107,35 @@ class GhostContainer extends egret.DisplayObjectContainer {
         }
         
     }
+
+    private playDieMusic(){
+        let sound = RES.getRes('ghost_die_mp3');
+        this._ghostDieChannel = sound.play(3.2,1);
+        this._ghostDieChannel.volume = 0.8;
+    }
+
+    private playFlashShockMusic(){
+        let sound = RES.getRes('ghost_flash_shock_mp3');
+        this._ghostFlashShockChannel = sound.play(0.2,1);
+        this._ghostFlashShockChannel.volume = 0.2;
+    }
+
+    private _catShockChannel:egret.SoundChannel;
+    private playShockMusic(){
+        let sound:egret.Sound = RES.getRes('cat_beattack_mp3');
+        this._catShockChannel = sound.play(.5,1);
+        this._catShockChannel.volume = 0.5;
+    }
     //监听消除事件
     private destoryHandler(e:MainEvent):void{
         if(Data.type == shapeType.FLASH){
             if(this._symbolList[0]==Data.type){
+                this._preFlash = true;
                 Data.stage.dispatchEvent(new MainEvent(MainEvent.FLASHACTION));
             }
         }
         else{
+             this._preFlash = false;
              if(this._symbolList[0]==Data.type){
                 this._symbolList.shift();
                 this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
@@ -118,6 +145,7 @@ class GhostContainer extends egret.DisplayObjectContainer {
                 }else{
                     this.removeChild(this._shape);
                     this._ghost.gotoAndPlay('die',1);
+                    this.playDieMusic();
                     Data.score+=this._score;
                     Data.stage.dispatchEvent(new MainEvent(MainEvent.DISTORYGHOST));
                 }
@@ -130,6 +158,7 @@ class GhostContainer extends egret.DisplayObjectContainer {
     private flashActionHandler(e:MainEvent):void{
         this._symbolList.shift();
         this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
+        this.playFlashShockMusic();
         if(this._symbolList.length>=1){
             this._ghost.gotoAndPlay('shock',1);
             this.redrawSymbol()

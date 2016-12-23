@@ -15,18 +15,35 @@ enum shapeType {
 // z 5
 class GestureShape
 {
-    private _layer:egret.Shape;
+    private _layer:egret.Sprite;
+    private _line:egret.Shape;
+    private _bg:egret.Shape;
     private _time:egret.Timer;
 
-    public addEvent(layer:egret.Shape)
+
+    private _bgColor:number = Shape.UNKONW_TYPE_COLOR;
+
+    public addEvent(layer:egret.Sprite)
     {
         this._layer = layer;
+        
+        this._bg = new egret.Shape();
+
+        this._line = new egret.Shape();
+        
+
+
+        this._layer.addChild(this._bg);
+        this._layer.addChild(this._line);
+        this.drawBackgroundColor();
+        
 
         Data.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.mouseDown,this);
         Data.stage.addEventListener(egret.TouchEvent.TOUCH_END,this.mouseUp,this);
-        Data.stage.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onTouchRealse, this);
         Data.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
     }
+
+    
     public removeEvent()
     {
         Data.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.mouseDown,this);
@@ -37,18 +54,19 @@ class GestureShape
     private _mouseDatas:egret.Point[];
     private _currentPoint:egret.Point;
 
-    private onTouchRealse(evt:egret.TouchEvent){
-        egret.log('onTouchRealse')
+
+    private drawBackgroundColor(color:number=Shape.UNKONW_TYPE_COLOR){
+        this._bg.graphics.clear();
+        this._bg.graphics.beginFill(color, 1);
+        this._bg.graphics.drawRect(0, 0, Data.getStageW(), Data.getStageH());
+        this._bg.graphics.endFill();
+        this._bg.mask=this._line;
     }
+
 
     private mouseDown(evt:egret.TouchEvent)
     {
-        // //添加定时器控制mousemove事件超时移除，防止用户滑动到微信头部无法控制其他事件导致的bug
-        // this._time = new egret.Timer(500, 0);
-        // this._time.reset();
-        // this._time.addEventListener(egret.TimerEvent.TIMER, this.freeMouseHandler, this);
-        
-        this._layer.graphics.clear();
+        this._line.graphics.clear();
         this._mouseDatas = [];
         let p:egret.Point = new egret.Point(evt.stageX,evt.stageY);
         this._mouseDatas.push(p);
@@ -56,41 +74,58 @@ class GestureShape
     }
     private mouseMove(evt:egret.TouchEvent)
     {
-        // this._time.reset();
-        // this._time.start();
+
         let p:egret.Point = new egret.Point(evt.stageX,evt.stageY);
         this._mouseDatas.push(p);
-        egret.log('mouseMove:',p)
-        
-        this._layer.graphics.lineStyle(5,0) ;
-        this._layer.graphics.moveTo(this._currentPoint.x,this._currentPoint.y);
-        this._layer.graphics.lineTo(p.x,p.y);
-        this._layer.graphics.endFill();
+
+        this._line.graphics.lineStyle(5,0) ;
+        this._line.graphics.moveTo(this._currentPoint.x,this._currentPoint.y);
+        this._line.graphics.lineTo(p.x,p.y);
+        this._line.graphics.endFill();
         this._currentPoint = p;
+        //判断图形重绘颜色
+        this.shouldDrawBgColor(this.motion());
     }
     private mouseUp(evt:egret.TouchEvent)
     {
         
         let p:egret.Point = new egret.Point(evt.stageX,evt.stageY);
-        egret.log('mouseUp',p)
+
         
         this._mouseDatas.push(p);
-        this._layer.graphics.clear();
-
-        this.motion();
+        this._line.graphics.clear();
+        this.disEvent(this.motion());
     }
 
-    // private freeMouseHandler(){
-    //     this._time.stop();
-    //     this._layer.graphics.clear();
-    //     this.rehandlerMove()
-    // }
+    private shouldDrawBgColor(type:number){
+        let color:number;
+        switch(type){
+            case shapeType.HORIZONTAL:
+                color=Shape.HORIZONTAL_COLOR;
+                break;
+            case shapeType.VERTICAL:
+                color=Shape.VERTICAL_COLOR;
+                break;
+            case shapeType.LETTER_V:
+                color=Shape.LETTER_V_COLOR;
+                break;
+            case shapeType.REVERSED_LETTER_V:
+                color=Shape.REVERSED_LETTER_V_COLOR;
+                break;
+            case shapeType.FLASH:
+                color=Shape.FLASH_COLOR;
+                break;
+            default:
+                color = Shape.UNKONW_TYPE_COLOR;
+        }
+        if(color!=this._bgColor){
+            this.drawBackgroundColor(color);
+            this._bgColor = color;
+        }
+    }
 
-    // private rehandlerMove(){
-    //     Data.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
-    //     // Data.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.mouseMove,this);
 
-    // }
+
     private motion()
     {
         let _arr:egret.Point[] = [];
@@ -108,7 +143,7 @@ class GestureShape
 
         this._mouseDatas = _arr;
 
-        this.parseDirection();
+        return this.parseDirection();
     }
 
     private _dirsArr:number[];
@@ -134,7 +169,7 @@ class GestureShape
         }
         let dirstr:string = this.repDiff( this._dirsArr );
         let rel:number = this.sweep( dirstr );
-        this.disEvent(rel);
+        return rel;
     }
 
     private disEvent(type:number)

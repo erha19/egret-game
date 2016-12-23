@@ -25,6 +25,8 @@ var game_file_list = [
 	"bin-debug/Main.js",
 	"bin-debug/Shape/Shape.js",
 	"bin-debug/Shape/ShapeContainer.js",
+	"bin-debug/Sound/MainSound.js",
+	"bin-debug/Sound/MainSoundBase.js",
 	"bin-debug/SpellCanvas/SpellCanvas.js",
 	"bin-debug/Utils/Gesture.js",
 	"bin-debug/Utils/ShapeRecognition.js",

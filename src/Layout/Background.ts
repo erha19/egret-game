@@ -45,13 +45,15 @@ class Background extends egret.DisplayObjectContainer{
         Data.stage.addEventListener(MainEvent.ATTACKED,this._cat.shock,this._cat);
         Data.stage.addEventListener(MainEvent.DISTORYGHOST,this.updateScore,this);
         Data.stage.addEventListener(MainEvent.ATTACKED,this.updateLife,this);
-        // egret.MainContext.instance.stage.addEventListener(MainEvent.DISTORYACTION,this._cat.draw,this);
+
     }
 
     public updateScore()
     {
         this._txt.text = 'score:'+Data.score.toString();
     }
+
+    
 
     public updateLife(){
         let _lifeIcon:egret.Bitmap;

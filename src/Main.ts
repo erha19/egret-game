@@ -84,4 +84,6 @@ class Main extends egret.DisplayObjectContainer {
 
         this._game.start();
     }
+
+    
 }

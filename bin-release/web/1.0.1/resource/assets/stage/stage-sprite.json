@@ -1,0 +1,6 @@
+{"file":"stage-sprite.png","frames":{
+"main-stage_png":{"x":0,"y":0,"w":640,"h":360,"offX":0,"offY":0,"sourceW":640,"sourceH":360},
+"life_png":{"x":124,"y":422,"w":33,"h":29,"offX":2,"offY":3,"sourceW":41,"sourceH":32},
+"pause_png":{"x":0,"y":422,"w":60,"h":60,"offX":0,"offY":0,"sourceW":60,"sourceH":60},
+"pause_start_png":{"x":62,"y":422,"w":60,"h":60,"offX":0,"offY":0,"sourceW":60,"sourceH":60},
+"restart_button_png":{"x":0,"y":362,"w":198,"h":58,"offX":0,"offY":0,"sourceW":198,"sourceH":58}}}

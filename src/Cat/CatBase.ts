@@ -6,6 +6,7 @@ class CatBase extends egret.MovieClip{
     protected endLabel: string;
     /**等待标签*/
     protected idleLabel: string;
+
     
 	public constructor() {
         super();
@@ -49,7 +50,18 @@ class CatBase extends egret.MovieClip{
             this.endLabel= "draw_flash";
             this.idleLabel = "song";
         }
+        this.playDrawMusic();
+        console.log(123456)
         this.gotoAndPlay(this.startLabel,1);
     }
+
+    private _catDrawChannel:egret.SoundChannel;
+    private playDrawMusic(){
+        let sound = RES.getRes('ding_1_mp3');
+        this._catDrawChannel = sound.play(1,1);
+        this._catDrawChannel.volume = 1;
+    }
+
+    
     
 }
