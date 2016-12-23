@@ -67,7 +67,7 @@ class Game
     {
         let times = 10;
         Data.ghostTimes++;
-        if(Data.ghostTimes%times==0){
+        if(Data.ghostTimes>0&&Data.ghostTimes%times==0){
             times+=10;
             Math.random()>0.5?Data.baseSymbolRandomNum++:Data.baseRandomSpeed++;
         }
@@ -75,6 +75,7 @@ class Game
         ghost.alpha=0;
         this._layer.addChild(ghost);
         egret.Tween.get( ghost ).to( {alpha:1}, 2000, egret.Ease.sineIn );
+        
     }
     private playBgMusic(){
         this._bgsound = RES.getRes('bg_mp3');

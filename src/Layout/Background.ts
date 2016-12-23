@@ -21,7 +21,7 @@ class Background extends egret.DisplayObjectContainer{
         this._cat.x = (Data.getStageW() + this._cat.width) / 2;
         this._cat.y = (Data.getStageH()  + this._cat.height) / 2;
         this.addChild(this._cat);
-        this._cat.song();
+        this._cat.stand();
 
 
         this._txt = new egret.BitmapText();
@@ -42,6 +42,9 @@ class Background extends egret.DisplayObjectContainer{
         
         
         Data.stage.addEventListener(MainEvent.DISTORYACTION,this._cat.draw,this._cat);
+        Data.stage.addEventListener(MainEvent.GAMEOVER,this._cat.die,this._cat);
+        Data.stage.addEventListener(MainEvent.GAMEPAUSE,this._cat.stand,this._cat);
+        Data.stage.addEventListener(MainEvent.DRAWSONG,this._cat.song,this._cat);
         Data.stage.addEventListener(MainEvent.ATTACKED,this._cat.shock,this._cat);
         Data.stage.addEventListener(MainEvent.DISTORYGHOST,this.updateScore,this);
         Data.stage.addEventListener(MainEvent.ATTACKED,this.updateLife,this);

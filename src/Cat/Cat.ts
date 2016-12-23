@@ -11,7 +11,6 @@ class Cat extends CatBase {
         this.movieClipData = mcf.generateMovieClipData("cat");
         this.anchorOffsetX = this.width / 2;
         this.startLabel = "";
-        this.endLabel= "";
-        this.idleLabel = "song";
+        this.idleLabel = "stand";
     }
 }

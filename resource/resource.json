@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,destory_ghosts_json,destory_ghosts_png,stage-sprite_json,num_fnt,bg_mp3,ghost_die_mp3,cat_beattack_mp3,ding_0_mp3,ding_1_mp3,ding_2_mp3,ding_3_mp3,ding_4_mp3,ding_5_mp3,ghost_flash_shock_mp3",
+			"keys": "description_json,destory_ghosts_json,destory_ghosts_png,stage-sprite_json,num_fnt,bg_mp3,ghost_die_mp3,cat_beattack_mp3,ding_cat_beattack.mp3_mp3,ding_1_mp3,ding_2_mp3,ding_3_mp3,ding_4_mp3,ding_5_mp3,ghost_flash_shock_mp3",
 			"name": "preload"
 		}
 	],
@@ -25,7 +25,7 @@
 			"url": "assets/stage/stage-sprite.json",
 			"type": "sheet",
 			"name": "stage-sprite_json",
-			"subkeys": "life_png,main-stage_png,pause_png,pause_start_png,restart_button_png"
+			"subkeys": "combo_box_png,life_png,main-stage_png,pause_png,pause_start_png,restart_button_png"
 		},
 		{
 			"url": "assets/num/num.fnt",
@@ -33,74 +33,64 @@
 			"name": "num_fnt"
 		},
 		{
-			"url": "media/main.mp3",
-			"type": "sound",
-			"name": "main_mp3"
-		},
-		{
-			"url": "media/end.mp3",
-			"type": "sound",
-			"name": "end_mp3"
-		},
-		{
-			"url": "media/initial.mp3",
-			"type": "sound",
-			"name": "initial_mp3"
-		},
-		{
-			"url": "media/victory.mp3",
-			"type": "sound",
-			"name": "victory_mp3"
-		},
-		{
 			"url": "media/bg.mp3",
 			"type": "sound",
-			"name": "bg_mp3"
+			"name": "bg_mp3",
+			"soundType": "music"
 		},
 		{
+			"url": "media/ghost_die.mp3",
+			"type": "sound",
 			"name": "ghost_die_mp3",
-			"type": "sound",
-			"url": "media/ghost_die.mp3"
+			"soundType": "effect"
 		},
 		{
+			"url": "media/cat_beattack.mp3",
+			"type": "sound",
 			"name": "cat_beattack_mp3",
-			"type": "sound",
-			"url": "media/cat_beattack.mp3"
+			"soundType": "effect"
 		},
 		{
+			"url": "media/ding_0.mp3",
+			"type": "sound",
 			"name": "ding_0_mp3",
-			"type": "sound",
-			"url": "media/ding_0.mp3"
+			"soundType": "effect"
 		},
 		{
+			"url": "media/ding_1.mp3",
+			"type": "sound",
 			"name": "ding_1_mp3",
-			"type": "sound",
-			"url": "media/ding_1.mp3"
+			"soundType": "effect"
 		},
 		{
+			"url": "media/ding_2.mp3",
+			"type": "sound",
 			"name": "ding_2_mp3",
-			"type": "sound",
-			"url": "media/ding_2.mp3"
+			"soundType": "effect"
 		},
 		{
+			"url": "media/ding_3.mp3",
+			"type": "sound",
 			"name": "ding_3_mp3",
-			"type": "sound",
-			"url": "media/ding_3.mp3"
+			"soundType": "effect"
 		},
 		{
+			"url": "media/ding_4.mp3",
+			"type": "sound",
 			"name": "ding_4_mp3",
-			"type": "sound",
-			"url": "media/ding_4.mp3"
+			"soundType": "effect"
 		},
 		{
+			"url": "media/ding_5.mp3",
+			"type": "sound",
 			"name": "ding_5_mp3",
-			"type": "sound",
-			"url": "media/ding_5.mp3"
+			"soundType": "effect"
 		},
 		{
-			"name": "ghost_flash_shock_mp3",
+			"url": "media/ghost_flash_shock.mp3",
 			"type": "sound",
-			"url": "media/ghost_flash_shock.mp3"
+			"name": "ghost_flash_shock_mp3",
+			"soundType": "effect"
 		}
 	]
 }

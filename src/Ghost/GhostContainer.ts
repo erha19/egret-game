@@ -17,8 +17,8 @@ class GhostContainer extends egret.DisplayObjectContainer {
     private _vy:number = 0;
     //方向 1 左边 0右边
     private _dir:number = Math.random()>0.5?0:1;
-    //防止自身监听的flash重复触发
-    private _preFlash:boolean = false;
+    //防止其他鬼怪对象先后监听到DISTORY和FLASHACTION两个事件，两者同时只能促发一个
+    private _doingDestory:boolean = false;
 
     private _ghostDieChannel:egret.SoundChannel;
     private _ghostFlashShockChannel:egret.SoundChannel;
@@ -71,7 +71,7 @@ class GhostContainer extends egret.DisplayObjectContainer {
 
     private added(evt:egret.Event):void {
             if(evt.target instanceof GhostContainer){
-                this.x =this._dir?0:Data.getStageW();
+                this.x =this._dir?this.width/2:Data.getStageW()-this.width/2;
                 this.y =Math.ceil(Data.getStageH()*Math.random());
 
                 this.scaleX*=this._dir?-1:1;
@@ -116,7 +116,7 @@ class GhostContainer extends egret.DisplayObjectContainer {
 
     private playFlashShockMusic(){
         let sound = RES.getRes('ghost_flash_shock_mp3');
-        this._ghostFlashShockChannel = sound.play(0.2,1);
+        this._ghostFlashShockChannel = sound.play(0.8,1);
         this._ghostFlashShockChannel.volume = 0.2;
     }
 
@@ -128,14 +128,16 @@ class GhostContainer extends egret.DisplayObjectContainer {
     }
     //监听消除事件
     private destoryHandler(e:MainEvent):void{
+        if(Data.flashDetoryStatus){
+            return ;
+        }
         if(Data.type == shapeType.FLASH){
             if(this._symbolList[0]==Data.type){
-                this._preFlash = true;
+                Data.flashDetoryStatus = true;
                 Data.stage.dispatchEvent(new MainEvent(MainEvent.FLASHACTION));
             }
         }
         else{
-             this._preFlash = false;
              if(this._symbolList[0]==Data.type){
                 this._symbolList.shift();
                 this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
@@ -156,19 +158,22 @@ class GhostContainer extends egret.DisplayObjectContainer {
 
 
     private flashActionHandler(e:MainEvent):void{
-        this._symbolList.shift();
-        this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
-        this.playFlashShockMusic();
-        if(this._symbolList.length>=1){
-            this._ghost.gotoAndPlay('shock',1);
-            this.redrawSymbol()
-        }else{
-            if(this._shape.parent){
-                this.removeChild(this._shape);
+        if(Data.flashDetoryStatus){
+            this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
+            this._symbolList.shift();
+            
+            this.playFlashShockMusic();
+            if(this._symbolList.length>=1){
+                this._ghost.gotoAndPlay('shock',1);
+                this.redrawSymbol()
+            }else{
+                if(this._shape.parent){
+                    this.removeChild(this._shape);
+                }
+                this._ghost.gotoAndPlay('die',1);
+                Data.score+=this._score;
+                Data.stage.dispatchEvent(new MainEvent(MainEvent.DISTORYGHOST));
             }
-            this._ghost.gotoAndPlay('die',1);
-            Data.score+=this._score;
-            Data.stage.dispatchEvent(new MainEvent(MainEvent.DISTORYGHOST));
         }
     }
 

@@ -30,4 +30,6 @@ class Data
     public static baseSymbolRandomNum:number = 0;
     //怪物波次
     public static ghostTimes:number = 0;
+
+    public static flashDetoryStatus:boolean = false;
 }

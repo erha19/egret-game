@@ -71,6 +71,7 @@ class GestureShape
         let p:egret.Point = new egret.Point(evt.stageX,evt.stageY);
         this._mouseDatas.push(p);
         this._currentPoint = p;
+        Data.stage.dispatchEvent(new MainEvent(MainEvent.DRAWSONG));
     }
     private mouseMove(evt:egret.TouchEvent)
     {
@@ -177,6 +178,7 @@ class GestureShape
         Data.type = type;
         if(type != -1)
         {
+            Data.flashDetoryStatus = false;
             Data.stage.dispatchEvent(new MainEvent(MainEvent.DISTORYACTION,null,true));
         }
     }
