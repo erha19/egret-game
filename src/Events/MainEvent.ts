@@ -24,6 +24,7 @@ class MainEvent extends egret.Event {
     public static FLASHACTION: string = "flash_action";//消除闪电时间
     public static ATTACKED: string = "be_attacked";//被攻击
     public static DRAWSONG: string = "draw_song";//吟唱
+    public static CATSTAND: string = "cat_stand";//猫猫站住
 
     
     

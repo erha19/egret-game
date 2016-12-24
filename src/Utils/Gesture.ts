@@ -95,6 +95,7 @@ class GestureShape
         
         this._mouseDatas.push(p);
         this._line.graphics.clear();
+
         this.disEvent(this.motion());
     }
 
@@ -180,6 +181,8 @@ class GestureShape
         {
             Data.flashDetoryStatus = false;
             Data.stage.dispatchEvent(new MainEvent(MainEvent.DISTORYACTION,null,true));
+        }else{
+            Data.stage.dispatchEvent(new MainEvent(MainEvent.CATSTAND));
         }
     }
 

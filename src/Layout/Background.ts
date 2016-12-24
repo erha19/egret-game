@@ -45,6 +45,7 @@ class Background extends egret.DisplayObjectContainer{
         Data.stage.addEventListener(MainEvent.GAMEOVER,this._cat.die,this._cat);
         Data.stage.addEventListener(MainEvent.GAMEPAUSE,this._cat.stand,this._cat);
         Data.stage.addEventListener(MainEvent.DRAWSONG,this._cat.song,this._cat);
+        Data.stage.addEventListener(MainEvent.CATSTAND,this._cat.stand,this._cat);
         Data.stage.addEventListener(MainEvent.ATTACKED,this._cat.shock,this._cat);
         Data.stage.addEventListener(MainEvent.DISTORYGHOST,this.updateScore,this);
         Data.stage.addEventListener(MainEvent.ATTACKED,this.updateLife,this);
