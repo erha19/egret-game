@@ -1,0 +1,60 @@
+{
+	"resources": [
+		{
+			"name": "num_png",
+			"type": "image",
+			"url": "assets/num/num.png"
+		},
+		{
+			"name": "num_fnt",
+			"type": "font",
+			"url": "assets/num/num.fnt"
+		},
+		{
+			"name": "ghost_die_mp3",
+			"type": "sound",
+			"url": "media/ghost_die.mp3"
+		},
+		{
+			"name": "cat_beattack_mp3",
+			"type": "sound",
+			"url": "media/cat_beattack.mp3"
+		},
+		{
+			"name": "ding_0_mp3",
+			"type": "sound",
+			"url": "media/ding_0.mp3"
+		},
+		{
+			"name": "ding_1_mp3",
+			"type": "sound",
+			"url": "media/ding_1.mp3"
+		},
+		{
+			"name": "ding_2_mp3",
+			"type": "sound",
+			"url": "media/ding_2.mp3"
+		},
+		{
+			"name": "ding_4_mp3",
+			"type": "sound",
+			"url": "media/ding_4.mp3"
+		},
+		{
+			"name": "ding_5_mp3",
+			"type": "sound",
+			"url": "media/ding_5.mp3"
+		},
+		{
+			"name": "ghost_flash_shock_mp3",
+			"type": "sound",
+			"url": "media/ghost_flash_shock.mp3"
+		}
+	],
+	"groups": [
+		{
+			"name": "preload",
+			"keys": "num_png,num_fnt,ghost_die_mp3,cat_beattack_mp3,ding_0_mp3,ding_1_mp3,ding_2_mp3,ding_4_mp3,ding_5_mp3,ghost_flash_shock_mp3"
+		}
+	]
+}
