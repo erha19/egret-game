@@ -8,6 +8,9 @@ class Background extends egret.DisplayObjectContainer{
     private _life:egret.Sprite;
     private _cat:Cat;
     private _txt:egret.BitmapText;
+
+    private _ghostFlashShockChannel:egret.SoundChannel;
+    
     
     private init()
     {
@@ -45,6 +48,7 @@ class Background extends egret.DisplayObjectContainer{
         Data.stage.addEventListener(MainEvent.GAMEOVER,this._cat.die,this._cat);
         Data.stage.addEventListener(MainEvent.GAMEPAUSE,this._cat.stand,this._cat);
         Data.stage.addEventListener(MainEvent.DRAWSONG,this._cat.song,this._cat);
+        Data.stage.addEventListener(MainEvent.FLASHACTION, this.playFlashShockMusic, this);
         Data.stage.addEventListener(MainEvent.CATSTAND,this._cat.stand,this._cat);
         Data.stage.addEventListener(MainEvent.ATTACKED,this._cat.shock,this._cat);
         Data.stage.addEventListener(MainEvent.DISTORYGHOST,this.updateScore,this);
@@ -58,6 +62,12 @@ class Background extends egret.DisplayObjectContainer{
     }
 
     
+    private playFlashShockMusic(){
+        let sound = RES.getRes('ghost_flash_shock_mp3');
+        this._ghostFlashShockChannel = sound.play(0.8,1);
+        this._ghostFlashShockChannel.volume = 0.5;
+    }
+
 
     public updateLife(){
         let _lifeIcon:egret.Bitmap;

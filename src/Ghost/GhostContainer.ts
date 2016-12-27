@@ -91,7 +91,8 @@ class GhostContainer extends egret.DisplayObjectContainer {
         
         if (this.hitPointTest()) {
             this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
-            
+            Data.stage.removeEventListener(MainEvent.DISTORYACTION,this.destoryHandler,this);
+            Data.stage.removeEventListener(MainEvent.FLASHACTION, this.flashActionHandler, this);
             this._ghost.gotoAndPlay('attack',1);
             this.playShockMusic();
             this._symbolList.length = 0;
@@ -114,11 +115,7 @@ class GhostContainer extends egret.DisplayObjectContainer {
         this._ghostDieChannel.volume = 0.8;
     }
 
-    private playFlashShockMusic(){
-        let sound = RES.getRes('ghost_flash_shock_mp3');
-        this._ghostFlashShockChannel = sound.play(0.8,1);
-        this._ghostFlashShockChannel.volume = 0.2;
-    }
+    
 
     private _catShockChannel:egret.SoundChannel;
     private playShockMusic(){
@@ -162,7 +159,6 @@ class GhostContainer extends egret.DisplayObjectContainer {
             this.removeEventListener(egret.Event.ENTER_FRAME, this.move, this);
             this._symbolList.shift();
             
-            this.playFlashShockMusic();
             if(this._symbolList.length>=1){
                 this._ghost.gotoAndPlay('shock',1);
                 this.redrawSymbol()

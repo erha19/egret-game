@@ -36,11 +36,6 @@
 			"url": "media/ding_2.mp3"
 		},
 		{
-			"name": "ding_3_mp3",
-			"type": "sound",
-			"url": "media/ding_3.mp3"
-		},
-		{
 			"name": "ding_4_mp3",
 			"type": "sound",
 			"url": "media/ding_4.mp3"
@@ -59,7 +54,7 @@
 	"groups": [
 		{
 			"name": "preload",
-			"keys": "num_png,num_fnt,ghost_die_mp3,cat_beattack_mp3,ding_0_mp3,ding_1_mp3,ding_2_mp3,ding_3_mp3,ding_4_mp3,ding_5_mp3,ghost_flash_shock_mp3"
+			"keys": "num_png,num_fnt,ghost_die_mp3,cat_beattack_mp3,ding_0_mp3,ding_1_mp3,ding_2_mp3,ding_4_mp3,ding_5_mp3,ghost_flash_shock_mp3"
 		}
 	]
 }
